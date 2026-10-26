@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+  autonomous-agent:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    container_name: telewhat
+    env_file:
+      - ../.env
+    environment:
+      TELEGRAM_TOKEN: ${TELEGRAM_TOKEN}
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      GITHUB_TOKEN: ${GITHUB_TOKEN}
+      GITHUB_USERNAME: ${GITHUB_USERNAME}
+      DEFAULT_WORKSPACE: /workspace
+      DB_PATH: /app/app.db
+      ALLOWED_CHAT_IDS: ${ALLOWED_CHAT_IDS}
+      APP_NAME: ${APP_NAME}
+      LOG_LEVEL: ${LOG_LEVEL}
+      ALLOW_GITHUB_REPO_CREATION: ${ALLOW_GITHUB_REPO_CREATION}
+      ALLOW_SHELL: ${ALLOW_SHELL}
+      ALLOW_BROWSER: ${ALLOW_BROWSER}
+      USER_EMAIL: ${USER_EMAIL}
+      USER_PASSWORD: ${USER_PASSWORD}
+      MAX_TASK_RUNTIME_MINUTES: ${MAX_TASK_RUNTIME_MINUTES}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../workspace:/workspace
+      - ../logs:/app/logs
+      - ../app.db:/app/app.db
+    restart: unless-stopped
