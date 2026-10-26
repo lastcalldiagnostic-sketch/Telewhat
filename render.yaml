@@ -1,0 +1,34 @@
+services:
+  - type: web
+    name: telewhat
+    runtime: docker
+    repo: https://github.com/lastcalldiagnostic-sketch/Telewhat
+    plan: free
+    branch: main
+    dockerCommand: "./scripts/entrypoint.sh"
+    healthCheckPath: "/health"
+    envVars:
+      - key: TELEGRAM_TOKEN
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: GITHUB_TOKEN
+        sync: false
+      - key: GITHUB_USERNAME
+        sync: false
+      - key: ALLOWED_CHAT_IDS
+        sync: false
+      - key: APP_NAME
+        value: Telewhat
+      - key: LOG_LEVEL
+        value: INFO
+      - key: ALLOW_GITHUB_REPO_CREATION
+        value: true
+      - key: ALLOW_SHELL
+        value: true
+      - key: ALLOW_BROWSER
+        value: true
+      - key: MAX_TASK_RUNTIME_MINUTES
+        value: "60"
+      - key: DEFAULT_WORKSPACE
+        value: /workspace
